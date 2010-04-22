@@ -13,8 +13,3 @@ class FacebookUser(models.Model):
 	name = models.CharField(max_length=150)
 	profile_url = models.CharField(max_length=350,blank=True,null=True)
 	access_token = models.CharField(max_length=150,blank=True,null=True)
-	key = models.CharField(max_length=150,blank=True,null=True)
-	secret = models.CharField(max_length=150,blank=True,null=True)
-	location = models.CharField(max_length=150,blank=True,null=True)
-	description = models.CharField(max_length=150,blank=True,null=True)
-	username = models.CharField(max_length=150,blank=True,null=True)
