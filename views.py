@@ -7,8 +7,8 @@ from kimz.facebook.models import *
 import time,cgi,urllib
 import simplejson as json
 
-APP_ID = '113380022027046'
-APP_SECRET = '7e0756ac9e65d069cf41b20a4ab965ea'
+APP_ID = 'YOUR FACEBOOK APP ID'
+APP_SECRET = 'YOUR FACEBOOK APP SECRET'
 		
 def login(request):
 	try:
@@ -31,7 +31,6 @@ def login(request):
 		else:
 			return HttpResponseRedirect("https://graph.facebook.com/oauth/authorize?" + urllib.urlencode(args))
 	except Exception,e:
-		#LOGGER.error('Error in login ' + str(e))
 		return render_to_response("facebook.html",{"error":"error in login " + str(e)})
 	
 def logout(request):
@@ -55,5 +54,4 @@ def home(request):
 		else:
 			return render_to_response('facebook.html')
 	except Exception,e:
-		#LOGGER.error('Error in home ' + str(e))
 		return render_to_response("facebook.html",{'error':"error in home " + str(e)})
