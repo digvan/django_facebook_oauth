@@ -1,5 +1,7 @@
-the code is very straight forward
+The code is very straight forward
+
 you can install app easily by adding 'facebook' to your settings.py installed app
 and then run manage.py syncdb
+make sure you register your application with facebook and get APP ID an APP SECRET and replace it in views.py
 
-Let me know if you have any question @digvan
+Let me know if you have any question @digvan (twitter)
