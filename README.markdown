@@ -7,6 +7,7 @@ This is a python app to use the new Graph API authentication with Django. It use
 4. Add facebook app to `INSTALLED_APPS` in settings.py: `'facebook',
 5. Add `APP_ID` and `APP_SECRET` to settings.py
 6. Run `python manage.py syncdb`
+
 ## Template Tags Examples
 To use the template tag to view the current user, add the following line to a template
 `{% load lets-do-this.facebook.backend.FacebookBackend %}{% facebook_profile_picture fb_user.facebook_id %}`
