@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import *
-from kimz.facebook.views import login,logout,home
+from facebook.views import login,logout,home
 
 urlpatterns = patterns('',
     url(r'^login/?$', view=login,name='login'),
