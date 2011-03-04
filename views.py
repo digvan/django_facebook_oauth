@@ -12,10 +12,10 @@ from django.contrib.auth import login, logout, authenticate
 
 # Custom
 from facebook.utils import get_facebook_profile
-from facebook.models import *
+from facebook.models import FacebookUser
         
 def authenticate_view(request):
-    code = request.GET.get('code',None)
+    code = request.GET.get('code', None)
     args = {
         'client_id': settings.FACEBOOK_APP_ID,
         'redirect_uri': request.build_absolute_uri(reverse('facebook.views.authenticate_view')),
@@ -29,14 +29,14 @@ def authenticate_view(request):
             login(request, user)
             return HttpResponseRedirect('/')
         else:
-            return HttpResponseRedirect(reverse('facebook.views.registration'))
+            return HttpResponseRedirect(reverse('facebook.views.register_view'))
     else:
         return HttpResponseRedirect('https://www.facebook.com/dialog/oauth?' + urllib.urlencode(args))
 
 def register_view(request):
     if request.method == 'POST':
         user = User.objects.create_user(request.POST['username'], request.POST['email'])
-        fb_user = FacebookUser(user = user, facebook_id = request.session['fb_id'])
+        fb_user = FacebookUser(user=user, facebook_id=request.session['fb_id'])
         fb_user.save()
         return HttpResponseRedirect(reverse('facebook.views.authenticate_view'))
     else:

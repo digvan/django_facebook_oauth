@@ -7,7 +7,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 
 # Custom
-from facebook.models import *
+from facebook.models import FacebookUser
 
 class FacebookBackend:
     def authenticate(self, token=None, request=None):
