@@ -18,7 +18,7 @@ def authenticate_view(request):
     code = request.GET.get('code',None)
     args = {
         'client_id': settings.FACEBOOK_APP_ID,
-        'redirect_uri': 'http://%s%s' % (Site.objects.get_current(), reverse('facebook.views.authenticate_view')),
+        'redirect_uri': request.build_absolute_uri(reverse('facebook.views.authenticate_view')),
         'scope': 'email,user_birthday,publish_stream',
     }
     

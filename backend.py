@@ -14,7 +14,7 @@ class FacebookBackend:
         args = {
             'client_id': settings.FACEBOOK_APP_ID,
             'client_secret': settings.FACEBOOK_APP_SECRET,
-            'redirect_uri': "http://%s%s" % (Site.objects.get_current(), reverse('facebook.views.authenticate_view')),
+            'redirect_uri': request.build_absolute_uri(reverse('facebook.views.authenticate_view')),
             'code': token,
         }
         
