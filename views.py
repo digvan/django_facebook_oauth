@@ -13,9 +13,9 @@ from django.contrib.auth.models import User
 # Custom
 from facebook.utils import get_facebook_profile
 from facebook.models import FacebookUser
-       
+
 def authenticate_view(request):
-    code = request.GET.get('code', None)
+    code = request.GET.get('code')
     args = {
         'client_id': settings.FACEBOOK_APP_ID,
         'redirect_uri': request.build_absolute_uri(reverse('facebook.views.authenticate_view')),
@@ -27,10 +27,20 @@ def authenticate_view(request):
         
         if user != None:
             login(request, user)
-            return HttpResponseRedirect('/')
+            return_uri = request.session.get('fb_return_uri')
+            if return_uri is None:
+                return HttpResponseRedirect('/')
+            else:
+                del request.session['fb_return_uri']
+                return HttpResponseRedirect(return_uri)
+        
         else:
             return HttpResponseRedirect(reverse('facebook.views.register_view'))
     else:
+        referer = request.META.get('HTTP_REFERER')
+        if not referer is None:
+            request.session['fb_return_uri'] = referer
+        
         return HttpResponseRedirect('https://www.facebook.com/dialog/oauth?' + urllib.urlencode(args))
 
 def register_view(request):
