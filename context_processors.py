@@ -2,8 +2,10 @@
 from facebook.models import FacebookUser
 
 def facebook(request):
+    fb_user = None
     try:
-        fb_user = FacebookUser.objects.get(user=request.user.id)
+        if request.user.is_authenticated():
+            fb_user = FacebookUser.objects.get(user=request.user.id)
     except FacebookUser.DoesNotExist:
-        fb_user = None
+        pass
     return { 'fb_user': fb_user }

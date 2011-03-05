@@ -13,7 +13,7 @@ from django.contrib.auth.models import User
 # Custom
 from facebook.utils import get_facebook_profile
 from facebook.models import FacebookUser
-        
+       
 def authenticate_view(request):
     code = request.GET.get('code', None)
     args = {
