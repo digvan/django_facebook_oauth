@@ -7,8 +7,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.conf import settings
-from django.contrib.sites.models import Site
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.models import User
 
 # Custom
 from facebook.utils import get_facebook_profile
@@ -34,10 +34,16 @@ def authenticate_view(request):
         return HttpResponseRedirect('https://www.facebook.com/dialog/oauth?' + urllib.urlencode(args))
 
 def register_view(request):
+    try:
+        fb_profile = request.session['fb_profile']
+    except KeyError:
+        return HttpResponseRedirect('/')
+    
     if request.method == 'POST':
         user = User.objects.create_user(request.POST['username'], request.POST['email'])
-        fb_user = FacebookUser(user=user, facebook_id=request.session['fb_id'])
+        fb_user = FacebookUser(user=user, facebook_id=fb_profile['id'])
         fb_user.save()
+        del request.session['fb_profile']
         return HttpResponseRedirect(reverse('facebook.views.authenticate_view'))
     else:
         return render_to_response('member/register-facebook.html', context_instance=RequestContext(request))
