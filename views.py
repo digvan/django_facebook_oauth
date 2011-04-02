@@ -37,9 +37,10 @@ def authenticate_view(request):
         else:
             return HttpResponseRedirect(reverse('facebook.views.register_view'))
     else:
-        referer = request.META.get('HTTP_REFERER')
-        if not referer is None:
-            request.session['fb_return_uri'] = referer
+        if request.GET.get('ignorereferer') != '1':
+            referer = request.META.get('HTTP_REFERER')
+            if not referer is None:
+                request.session['fb_return_uri'] = referer
         
         return HttpResponseRedirect('https://www.facebook.com/dialog/oauth?' + urllib.urlencode(args))
 
@@ -54,7 +55,7 @@ def register_view(request):
         fb_user = FacebookUser(user=user, facebook_id=fb_profile['id'])
         fb_user.save()
         del request.session['fb_profile']
-        return HttpResponseRedirect(reverse('facebook.views.authenticate_view'))
+        return HttpResponseRedirect(reverse('facebook.views.authenticate_view') + '?ignorereferer=1')
     else:
         return render_to_response('member/register-facebook.html', context_instance=RequestContext(request))
 
