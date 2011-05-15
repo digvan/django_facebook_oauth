@@ -5,7 +5,7 @@ This is a python app to use the new Graph API authentication with Django. It use
 2. Add the facebook context processor to `TEMPLATE_CONTEXT_PROCESSORS` in settings.py: `"facebook.context_processors.facebook",`
 3. Add the facebook authentication backend to settings.py `AUTHENTICATION_BACKENDS = ('facebook.backend.FacebookBackend')`
 4. Add facebook app to `INSTALLED_APPS` in settings.py: `'facebook',
-5. Add `FACEBOOK_APP_ID` and `FACEBOOK_APP_SECRET` to settings.py
+5. Add `FACEBOOK_APP_ID`, `FACEBOOK_APP_SECRET` and `FACEBOOK_SCOPE` (e.g. 'email,user_birthday,publish_stream') to settings.py
 6. Add this line to the urlpatterns in urls.py `(r'^facebook/', include('facebook.urls')),`
 7. Run `python manage.py syncdb`
 8. Add `{{ fb_user.facebook_id }}` to a template. It should show the logged in user's facebook id.
