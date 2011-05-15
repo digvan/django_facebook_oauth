@@ -43,3 +43,6 @@ class FacebookBackend:
             return User.objects.get(pk=user_id)
         except User.DoesNotExist:
             return None
+    
+    supports_object_permissions = False
+    supports_anonymous_user = False
