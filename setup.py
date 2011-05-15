@@ -8,7 +8,7 @@ setup(
     long_description=open('README.markdown').read(),
     author='Jeff Dickey',
     author_email='dickeytk@gmail.com',
-    url='https://github.com/Anue/django_facebook_oauth',
+    url='https://github.com/robertlacroix/django_facebook_oauth',
     packages=['facebook'],
     package_dir={'facebook': 'facebook'},
     classifiers=[
